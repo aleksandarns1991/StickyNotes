@@ -1,0 +1,128 @@
+﻿<Window x:Class="StickyNote.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StickyNote"
+        mc:Ignorable="d"
+        Height="350" Width="350"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="{Binding BackgroundColor}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.Resources>
+            <Style TargetType="Button">
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Margin" Value="10"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <ContentPresenter Content="{TemplateBinding Content}"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style TargetType="Button" x:Key="SymbolStyle" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="FontFamily" Value="Segoe Fluent Icons"/>
+            </Style>
+        </Grid.Resources>
+
+        <Button Style="{StaticResource SymbolStyle}" Content="&#xE711;" Name="BtnClose" Click="BtnClose_Click"/>
+        <Button Style="{StaticResource SymbolStyle}" Content="&#xE712;" Grid.Column="2" Name="BtnChangeColor" Click="BtnChangeColor_Click"/>
+        <Button Style="{StaticResource SymbolStyle}" Content="&#xE710;" Grid.Column="3" Name="BtnNewNote" Click="BtnNewNote_Click"/>
+
+        <DockPanel>
+            <DockPanel.Style>
+                <Style TargetType="DockPanel">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding OpenPanel}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DockPanel.Style>
+
+            <DockPanel.Resources>
+                <Style TargetType="Button">
+                    <EventSetter Event="Click" Handler="Button_Click"/>
+                    <Setter Property="Height" Value="50"/>
+                    <Setter Property="Width" Value="50"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        Background="{TemplateBinding Background}"
+                                        Height="{TemplateBinding Height}"
+                                        Width="{TemplateBinding Width}">
+                                    <ContentPresenter Content="{TemplateBinding Content}"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DockPanel.Resources>
+
+            <Button Background="Yellow" ToolTip="Yellow"/>
+            <Button Background="LightGreen" ToolTip="Light green"/>
+            <Button Background="Pink" ToolTip="Pink"/>
+            <Button Background="MediumPurple" ToolTip="Medium purple"/>
+            <Button Background="LightBlue" ToolTip="Light blue"/>
+            <Button Background="LightGray" ToolTip="Light gray"/>
+            <Button Background="Gray" ToolTip="Gray"/>
+        </DockPanel>
+
+        <TextBox TextWrapping="Wrap"  Background="Transparent" 
+                 BorderBrush="Transparent" BorderThickness="0"
+                 FontSize="16" AcceptsReturn="True"
+                 Grid.Row="1" Grid.ColumnSpan="4"
+                 Name="txtBox"
+                 Margin="10"/>
+
+
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center"
+                    Orientation="Horizontal"
+                    Margin="10" Grid.Row="2">
+            <Button Name="BtnBold" Click="BtnBold_Click">
+                <TextBlock Text="B" FontWeight="Bold"/>
+            </Button>
+
+            <Button Name="BtnItalic" Click="BtnItalic_Click">
+                <TextBlock Text="I" FontStyle="Italic"/>
+            </Button>
+
+            <Button Name="BtnUnderline" Click="BtnUnderline_Click">
+                <TextBlock Text="U" TextDecorations="Underline"/>
+            </Button>
+
+            <Button Name="BtnStrikethrough" Click="BtnStrikethrough_Click">
+                <TextBlock Text="S" TextDecorations="Strikethrough"/>
+            </Button>
+
+            <Button Name="BtnBullet" Click="BtnBullet_Click">
+                <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE700;" VerticalAlignment="Center"/>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>
