@@ -44,7 +44,7 @@ namespace StickyNote
 
         public MainWindow(Brush backgroundColor) : this()
         {
-            BackgroundColor = backgroundColor.Clone();
+            BackgroundColor = backgroundColor;
         }
 
         #region NotifyPropertyChanged
@@ -118,9 +118,9 @@ namespace StickyNote
 
             foreach (var line in lines)
             {
-                result += line.StartsWith('•') ? line.TrimStart('•').Trim() : "• " + line;
+                result += line.StartsWith('•') ? line.TrimStart('•').Trim() : $"• {line}";
 
-                if (line != lines.LastOrDefault())
+                if (line != lines.Last())
                 {
                     result += Environment.NewLine;
                 }
